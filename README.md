@@ -1,8 +1,6 @@
-seed-element
-================
+# onion-skin
 
-See the [component page](http://polymerlabs.github.io/seed-element) for more information.
+A Polymer-based custom element providing a way to diff between images using the "onion skin" method.
+You feed it image elements, then drag the slider to cross-fade between them.
 
-## Getting Started
-
-We've put together a [guide to seed-element](http://www.polymer-project.org/docs/start/reusableelements.html) to help get you rolling.
+See the [component page](http://oslego.github.io/onion-skin) for more information.
