@@ -2,6 +2,7 @@
 
 <!--
 Element providing a way to diff between images using the "onion skin" method.
+You feed it image elements, then drag the slider to cross-fade between them.
 
 ##### Example
 
@@ -21,11 +22,15 @@ Element providing a way to diff between images using the "onion skin" method.
 
     <link rel="stylesheet" href="onion-skin.css" />
 
-    <div class="frames-container">
-      <content select="img" id="images"></content>
-    </div>
+    <div class="tool-container" layout vertical>
 
-    <input type="range" max="{{maxOpacity}}" min="0" value="{{currentOpactiy}}" id="opacity" />
+      <div class="frames-container" self-center>
+        <content select="img" id="images"></content>
+      </div>
+
+      <input class="slider" type="range" max="{{maxOpacity}}" min="0" value="{{currentOpactiy}}" id="opacity" />
+
+    </div>
 
   </template>
 

@@ -1,9 +1,7 @@
 :host {
   display: block;
-}
-
-.frames-container{
-  position: relative;
+  max-width: 50%;
+  width: auto;
 }
 
 /* To ensure your styling works under the Shadow DOM polyfill, see
@@ -13,13 +11,62 @@ polyfill-next-selector { content: ':host > h2'; }
   color: blue;
 }
 
+polyfill-next-selector { content: ':host > img'; }
+::content img{
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+polyfill-next-selector { content: ':host > img:not(:first-child)'; }
 ::content img:not(:first-child){
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0; /* only first image is initally visible */
+  opacity: 0; /* only the first image is visible by default */
 }
 
+polyfill-next-selector { content: ':host > img:first-child'; }
 ::content img:first-child{
+  position: relative; /* gives dimensions to the container */
+}
+
+.tool-container{
+  border:1px solid #ccc;
+  padding: 2em 1em 1em;
+}
+
+.frames-container{
   position: relative;
+}
+
+.frames-slider{
+  width: 100%;
+}
+
+.slider{
+  width: 80%;
+  margin: 0 auto 1em;
+  position: relative;
+}
+
+.slider::before,
+.slider::after{
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 1px;
+  border: 1px solid #ccc;
+}
+
+.slider::before{
+  left: -16px;
+  border-color: #ccc;
+  background-color: white;
+}
+.slider::after{
+  right: -16px;
+  border-color: #666;
+  background-color: #666;
+  box-shadow: inset 0 0 1px #eee;
 }
