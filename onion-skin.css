@@ -33,6 +33,10 @@ polyfill-next-selector { content: ':host > img:first-child'; }
 .tool-container{
   border:1px solid #ccc;
   padding: 2em 1em 1em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;  
 }
 
 .frames-container{
