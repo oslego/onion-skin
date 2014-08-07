@@ -16,7 +16,7 @@ You feed it image elements, then drag the slider to cross-fade between them.
 @status alpha
 @homepage http://oslego.github.io/onion-skin
 -->
-<polymer-element name="onion-skin" attributes="author">
+<polymer-element name="onion-skin" attributes="currentOpacity">
 
   <template>
 
@@ -28,7 +28,7 @@ You feed it image elements, then drag the slider to cross-fade between them.
         <content select="img" id="images"></content>
       </div>
 
-      <input class="slider" type="range" max="{{maxOpacity}}" min="0" value="{{currentOpactiy}}" id="opacity" />
+      <input class="slider" type="range" max="{{maxOpacity}}" min="0" value="{{currentOpacity}}" id="opacity" />
 
     </div>
 
@@ -38,7 +38,28 @@ You feed it image elements, then drag the slider to cross-fade between them.
 
     Polymer('onion-skin', {
 
-      author: 'Razvan Caliman',
+      ready: function() {
+        /**
+         * The current value of the slider range.
+         *
+         * @property currentOpacity
+         */
+        this.currentOpacity = 0;
+
+        /**
+         * The maximum value of the slider range. The numer of images fed to the component influences this property.
+         *
+         * @property maxOpacity
+         */
+        this.maxOpacity = 0;
+
+        /**
+         * Array of image elements distributed in the onion-skin component.
+         *
+         * @property frames
+         */
+        this.frames = [];
+      },
 
       domReady: function(){
         // store distributed images as an array
@@ -46,16 +67,16 @@ You feed it image elements, then drag the slider to cross-fade between them.
         this.maxOpacity = (this.frames.length - 1) * 100;
       },
 
-      ready: function() {
-        this.currentOpactiy = 0;
-        this.maxOpacity = 0;
-        this.frames = [];
-      },
-
       observe: {
         '$.opacity.value': 'opacityChanged'
       },
 
+      /**
+       * The `opacityChanged` method is called whenever the value of the slider changes.
+       * It uses this value to compute the opacity level for each image in the stack.
+       *
+       * @method opacityChanged
+       */
       opacityChanged: function(oldValue, newValue) {
         if (!this.frames.length){
           return
@@ -78,27 +99,7 @@ You feed it image elements, then drag the slider to cross-fade between them.
           // TODO: store style state in JS and avoid updating DOM with duplicate values #webperf
           this.frames[i].style.opacity = opacity;
         }
-      },
-
-      /**
-       * The `seed-element-lasers-success` event is fired whenever we
-       * call fireLasers.
-       *
-       * @event seed-element-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
-       */
-
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function() {
-        this.fire('seed-element-lasers-success', { sound: 'Pew pew pew!' });
       }
-
     });
 
   </script>
