@@ -1,14 +1,14 @@
 {
-  "name": "seed-element",
-  "version": "0.0.0",
+  "name": "onion-skin",
+  "version": "1.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Razvan Caliman <razvan.caliman@gmail.com>"
   ],
-  "description": "Element providing solution to no problem in particular.",
-  "keywords": "seed, polymer, web-components",
-  "main": "seed-element.html",
+  "description": "Element providing a way to diff between images using the \"onion skin\" method",
+  "keywords": "image diff, onion skin, polymer, web-components",
+  "main": "onion-skin.html",
   "license": "MIT",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/oslego/onion-skin/",
   "ignore": [
     "**/.*"
   ],
