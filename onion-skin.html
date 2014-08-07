@@ -1,65 +1,78 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-Element providing solution to no problem in particular.
+Element providing a way to diff between images using the "onion skin" method.
 
 ##### Example
 
-    <seed-element></seed-element>
+    <onion-skin>
+      <img src="image1.png">
+      <img src="image2.png">
+    </onion-skin>
 
-@element seed-element
-@blurb Element providing solution to no problem in particular.
+@element onion-skin
+@blurb Element providing a way to diff between images using the "onion skin" method.
 @status alpha
-@homepage http://polymerlabs.github.io/seed-element
+@homepage http://oslego.github.io/onion-skin
 -->
-<polymer-element name="onion-skin" attributes="notitle author">
+<polymer-element name="onion-skin" attributes="author">
 
   <template>
 
     <link rel="stylesheet" href="onion-skin.css" />
 
-    <h1>Hello from seed-element</h1>
-    <content></content>
+    <div class="frames-container">
+      <content select="img" id="images"></content>
+    </div>
+
+    <input type="range" max="{{maxOpacity}}" min="0" value="{{currentOpactiy}}" id="opacity" />
 
   </template>
 
   <script>
 
     Polymer('onion-skin', {
-      /**
-       * The `author` attribute sets an initial author
-       *
-       * @attribute author
-       * @type string
-       * @default 'Dimitri Glazkov'
-       */
+
       author: 'Razvan Caliman',
 
-      /**
-       * `fancy` is a property that does something fancy.
-       *
-       * @property fancy
-       * @type bool
-       * @default false
-       */
-      fancy: false,
-
-      ready: function() {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
+      domReady: function(){
+        // store distributed images as an array
+        this.frames = Array.prototype.slice.call(this.$.images.getDistributedNodes());
+        this.maxOpacity = (this.frames.length - 1) * 100;
       },
 
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'seed-element says, ' + response;
+      ready: function() {
+        this.currentOpactiy = 0;
+        this.maxOpacity = 0;
+        this.frames = [];
+      },
+
+      observe: {
+        '$.opacity.value': 'opacityChanged'
+      },
+
+      opacityChanged: function(oldValue, newValue) {
+        if (!this.frames.length){
+          return
+        }
+
+        var value = parseInt(newValue, 10),
+            i, len, opacity;
+
+        for (i = 0, len = this.frames.length; i < len; i++) {
+          opacity = (value + 100 - i * 100) / 100;
+
+          // fade back out; optional but useful for imgs with transparency to avoid visible stacking
+          if (opacity > 1){
+            opacity = (2 - opacity)
+          }
+
+          // clamp opacity value to 0..1
+          opacity = Math.min(1, Math.max(0, opacity));
+
+          // TODO: store style state in JS and avoid updating DOM with duplicate values #webperf
+          this.frames[i].style.opacity = opacity;
+        }
       },
 
       /**
