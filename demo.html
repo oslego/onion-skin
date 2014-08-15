@@ -6,18 +6,26 @@
 
   <script src="../platform/platform.js"></script>
   <link rel="import" href="onion-skin.html">
+  <style>
+  .demo-wrapper{
+    width: 50%;
+  }
+  </style>
 
 </head>
 <body unresolved>
 
   <p>An example of using <code>&lt;onion-skin></code> to diff between images.</p>
-  <p>You feed it image elements, then drag the slider to cross-fade between them.</p>
+  <p>Feed it image elements, then drag the slider to fade through the stack.
+</p>
 
+  <div class="demo-wrapper">
+    <onion-skin>
+      <img src="images/octocat1.jpg" alt="">
+      <img src="images/octocat2.jpg" alt="">
+    </onion-skin>
 
-  <onion-skin>
-    <img src="images/octocat1.jpg" alt="">
-    <img src="images/octocat2.jpg" alt="">
-  </onion-skin>
+  </div>
 
   <p>Images fron GitHub's <a href="https://octodex.github.com/" target="_blank">Octodex</a></p>
 
