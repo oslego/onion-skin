@@ -1,10 +1,10 @@
 {
   "name": "onion-skin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "authors": [
     "Razvan Caliman <razvan.caliman@gmail.com>"
   ],
-  "description": "Element providing a way to diff between images using the \"onion skin\" method",
+  "description": "Custom element to diff between images using the \"onion skin\" method. Requires Polymer.",
   "keywords": "image diff, onion skin, polymer, web-components",
   "main": "onion-skin.html",
   "license": "MIT",
