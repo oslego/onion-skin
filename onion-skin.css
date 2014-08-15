@@ -3,20 +3,13 @@
   width: auto;
 }
 
-/* To ensure your styling works under the Shadow DOM polyfill, see
-   www.polymer-project.org/docs/polymer/styling.html#directives */
-polyfill-next-selector { content: ':host > h2'; }
-::content h2 {
-  color: blue;
-}
-
-polyfill-next-selector { content: ':host > img'; }
+polyfill-next-selector { content: ':host img'; }
 ::content img{
   max-width: 100%;
   margin: 0 auto;
 }
 
-polyfill-next-selector { content: ':host > img:not(:first-child)'; }
+polyfill-next-selector { content: ':host img:not(:first-child)'; }
 ::content img:not(:first-child){
   position: absolute;
   top: 0;
@@ -24,7 +17,7 @@ polyfill-next-selector { content: ':host > img:not(:first-child)'; }
   opacity: 0; /* only the first image is visible by default */
 }
 
-polyfill-next-selector { content: ':host > img:first-child'; }
+polyfill-next-selector { content: ':host img:first-child'; }
 ::content img:first-child{
   position: relative; /* gives dimensions to the container */
 }
@@ -35,7 +28,7 @@ polyfill-next-selector { content: ':host > img:first-child'; }
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;  
+  user-select: none;
 }
 
 .frames-container{
