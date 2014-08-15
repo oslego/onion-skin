@@ -53,6 +53,7 @@ polyfill-next-selector { content: ':host img:first-child'; }
   height: 10px;
   top: 1px;
   border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .slider::before{
