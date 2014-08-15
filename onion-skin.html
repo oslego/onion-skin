@@ -16,7 +16,7 @@ You feed it image elements, then drag the slider to fade through the stack.
 @status alpha
 @homepage http://oslego.github.io/onion-skin
 -->
-<polymer-element name="onion-skin" attributes="currentOpacity">
+<polymer-element name="onion-skin" attributes="crossfade">
 
   <template>
 
@@ -37,6 +37,16 @@ You feed it image elements, then drag the slider to fade through the stack.
   <script>
 
     Polymer('onion-skin', {
+
+      publish: {
+        /**
+         * If `crossfade` attribute is set on the element, cross-fade between sibling images.
+         * Useful when both images use transparency and stacking them yields visual artifacts.
+         *
+         * @attribute crossfade
+         */
+        crossfade: null,
+      },
 
       ready: function() {
         /**
@@ -78,6 +88,7 @@ You feed it image elements, then drag the slider to fade through the stack.
        * @method opacityChanged
        */
       opacityChanged: function(oldValue, newValue) {
+
         if (!this.frames.length){
           return
         }
@@ -88,8 +99,8 @@ You feed it image elements, then drag the slider to fade through the stack.
         for (i = 0, len = this.frames.length; i < len; i++) {
           opacity = (value + 100 - i * 100) / 100;
 
-          // fade back out; optional but useful for imgs with transparency to avoid visible stacking
-          if (opacity > 1){
+          // fade back out if crossfade attribute is set; useful for imgs with transparency to avoid visible stacking
+          if (this.crossfade !== null && opacity > 1){
             opacity = (2 - opacity)
           }
 
