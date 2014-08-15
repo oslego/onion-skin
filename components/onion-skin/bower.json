@@ -1,0 +1,19 @@
+{
+  "name": "onion-skin",
+  "version": "1.1.0",
+  "authors": [
+    "Razvan Caliman <razvan.caliman@gmail.com>"
+  ],
+  "description": "Custom element to diff between images using the \"onion skin\" method. Requires Polymer.",
+  "keywords": "image diff, onion skin, polymer, web-components",
+  "main": "onion-skin.html",
+  "license": "MIT",
+  "homepage": "https://github.com/oslego/onion-skin/",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.4",
+    "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3"
+  }
+}

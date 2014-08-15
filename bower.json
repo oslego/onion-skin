@@ -1,0 +1,7 @@
+{
+  "name": "onion-skin#gh-pages",
+  "private": true,
+  "dependencies": {
+    "onion-skin": "oslego/onion-skin#master"
+  }
+}

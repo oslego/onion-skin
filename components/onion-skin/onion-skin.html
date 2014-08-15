@@ -1,0 +1,118 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Custom element to diff between images using the "onion skin" method.
+You feed it image elements, then drag the slider to fade through the stack.
+
+##### Example
+
+    <onion-skin>
+      <img src="image1.png">
+      <img src="image2.png">
+    </onion-skin>
+
+@element onion-skin
+@blurb Element providing a way to diff between images using the "onion skin" method.
+@status alpha
+@homepage http://oslego.github.io/onion-skin
+-->
+<polymer-element name="onion-skin" attributes="crossfade">
+
+  <template>
+
+    <link rel="stylesheet" href="onion-skin.css" />
+
+    <div class="tool-container" layout vertical>
+
+      <div class="frames-container" self-center>
+        <content select="img" id="images"></content>
+      </div>
+
+      <input class="slider" type="range" max="{{maxOpacity}}" min="0" value="{{currentOpacity}}" id="opacity" />
+
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer('onion-skin', {
+
+      publish: {
+        /**
+         * If `crossfade` attribute is set on the element, cross-fade between sibling images.
+         * Useful when both images use transparency and stacking them yields visual artifacts.
+         *
+         * @attribute crossfade
+         */
+        crossfade: null,
+      },
+
+      ready: function() {
+        /**
+         * The current value of the slider range.
+         *
+         * @property currentOpacity
+         */
+        this.currentOpacity = 0;
+
+        /**
+         * The maximum value of the slider range. The numer of images fed to the component influences this property.
+         *
+         * @property maxOpacity
+         */
+        this.maxOpacity = 0;
+
+        /**
+         * Array of image elements distributed in the onion-skin component.
+         *
+         * @property frames
+         */
+        this.frames = [];
+      },
+
+      domReady: function(){
+        // store distributed images as an array
+        this.frames = Array.prototype.slice.call(this.$.images.getDistributedNodes());
+        this.maxOpacity = (this.frames.length - 1) * 100;
+      },
+
+      observe: {
+        '$.opacity.value': 'opacityChanged'
+      },
+
+      /**
+       * The `opacityChanged` method is called whenever the value of the slider changes.
+       * It uses this value to compute the opacity level for each image in the stack.
+       *
+       * @method opacityChanged
+       */
+      opacityChanged: function(oldValue, newValue) {
+
+        if (!this.frames.length){
+          return
+        }
+
+        var value = parseInt(newValue, 10),
+            i, len, opacity;
+
+        for (i = 0, len = this.frames.length; i < len; i++) {
+          opacity = (value + 100 - i * 100) / 100;
+
+          // fade back out if crossfade attribute is set; useful for imgs with transparency to avoid visible stacking
+          if (this.crossfade !== null && opacity > 1){
+            opacity = (2 - opacity)
+          }
+
+          // clamp opacity value to 0..1
+          opacity = Math.min(1, Math.max(0, opacity));
+
+          // TODO: store style state in JS and avoid updating DOM with duplicate values #webperf
+          this.frames[i].style.opacity = opacity;
+        }
+      }
+    });
+
+  </script>
+
+</polymer-element>

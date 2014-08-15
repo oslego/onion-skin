@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>onion-skin Demo</title>
+
+  <script src="../platform/platform.js"></script>
+  <link rel="import" href="onion-skin.html">
+  <style>
+  .demo-wrapper{
+    width: 50%;
+  }
+  </style>
+
+</head>
+<body unresolved>
+
+  <p>An example of using <code>&lt;onion-skin></code> to diff between images.</p>
+  <p>Feed it image elements, then drag the slider to fade through the stack.
+</p>
+
+  <div class="demo-wrapper">
+    <onion-skin>
+      <img src="images/octocat1.jpg" alt="">
+      <img src="images/octocat2.jpg" alt="">
+    </onion-skin>
+
+  </div>
+
+  <p>Images from GitHub's <a href="https://octodex.github.com/" target="_blank">Octodex</a></p>
+
+</body>
+</html>
